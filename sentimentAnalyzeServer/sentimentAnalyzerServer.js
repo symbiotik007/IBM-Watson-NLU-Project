@@ -24,7 +24,7 @@ function getNLUInstance() {
 
     const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
         version: '2021-08-01',
-        authenticator: new IamAuthenticator ({
+        authenticator: new IamAuthenticator({
             apikey: api_key
         }),
         serviceUrl: api_url
@@ -34,14 +34,14 @@ function getNLUInstance() {
 
 
 //The default endpoint for the webserver
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.render('index.html');
-  });
+});
 
 //The endpoint for the webserver ending with /url/emotion
-app.get("/url/emotion", (req,res) => {
+app.get("/url/emotion", (req, res) => {
     let urlToAnalyze = req.query.url
-    const analyzeParams = 
+    const analyzeParams =
     {
         "url": urlToAnalyze,
         "features": {
@@ -55,19 +55,19 @@ app.get("/url/emotion", (req,res) => {
     const naturalLanguageUnderstanding = getNLUInstance();
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
-    .then(analysisResults => {
-        //Retrieve the emotion and return it as a formatted string
-        return res.send(analysisResults.result.keywords[0].emotion,null,2);
-    })
-    .catch(err => {
-        return res.send("Could not do desired operation "+err);
-    });
+        .then(analysisResults => {
+            //Retrieve the emotion and return it as a formatted string
+            return res.send(analysisResults.result.keywords[0].emotion, null, 2);
+        })
+        .catch(err => {
+            return res.send("Could not do desired operation " + err);
+        });
 });
 
 //The endpoint for the webserver ending with /url/sentiment
-app.get("/url/sentiment", (req,res) => {
+app.get("/url/sentiment", (req, res) => {
     let urlToAnalyze = req.query.url
-    const analyzeParams = 
+    const analyzeParams =
     {
         "url": urlToAnalyze,
         "features": {
@@ -81,20 +81,20 @@ app.get("/url/sentiment", (req,res) => {
     const naturalLanguageUnderstanding = getNLUInstance();
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
-    .then(analysisResults => {
-        //Retrieve the sentiment and return it as a formatted string
+        .then(analysisResults => {
+            //Retrieve the sentiment and return it as a formatted string
 
-        return res.send(analysisResults.result.keywords[0].sentiment,null,2);
-    })
-    .catch(err => {
-        return res.send("Could not do desired operation "+err);
-    });
+            return res.send(analysisResults.result.keywords[0].sentiment, null, 2);
+        })
+        .catch(err => {
+            return res.send("Could not do desired operation " + err);
+        });
 });
 
 //The endpoint for the webserver ending with /text/emotion
-app.get("/text/emotion", (req,res) => {
+app.get("/text/emotion", (req, res) => {
     let textToAnalyze = req.query.text
-    const analyzeParams = 
+    const analyzeParams =
     {
         "text": textToAnalyze,
         "features": {
@@ -108,19 +108,19 @@ app.get("/text/emotion", (req,res) => {
     const naturalLanguageUnderstanding = getNLUInstance();
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
-    .then(analysisResults => {
-        //Retrieve the emotion and return it as a formatted string
+        .then(analysisResults => {
+            //Retrieve the emotion and return it as a formatted string
 
-        return res.send(analysisResults.result.keywords[0].emotion,null,2);
-    })
-    .catch(err => {
-        return res.send("Could not do desired operation "+err);
-    });
+            return res.send(analysisResults.result.keywords[0].emotion, null, 2);
+        })
+        .catch(err => {
+            return res.send("Could not do desired operation " + err);
+        });
 });
 
-app.get("/text/sentiment", (req,res) => {
+app.get("/text/sentiment", (req, res) => {
     let textToAnalyze = req.query.text
-    const analyzeParams = 
+    const analyzeParams =
     {
         "text": textToAnalyze,
         "features": {
@@ -134,14 +134,14 @@ app.get("/text/sentiment", (req,res) => {
     const naturalLanguageUnderstanding = getNLUInstance();
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
-    .then(analysisResults => {
-        //Retrieve the sentiment and return it as a formatted string
+        .then(analysisResults => {
+            //Retrieve the sentiment and return it as a formatted string
 
-        return res.send(analysisResults.result.keywords[0].sentiment,null,2);
-    })
-    .catch(err => {
-        return res.send("Could not do desired operation "+err);
-    });
+            return res.send(analysisResults.result.keywords[0].sentiment, null, 2);
+        })
+        .catch(err => {
+            return res.send("Could not do desired operation " + err);
+        });
 });
 
 let server = app.listen(8080, () => {
